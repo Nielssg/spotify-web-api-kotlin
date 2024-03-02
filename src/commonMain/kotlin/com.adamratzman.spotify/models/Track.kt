@@ -2,6 +2,7 @@
 package com.adamratzman.spotify.models
 
 import com.adamratzman.spotify.SpotifyRestAction
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.Market
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -45,13 +46,16 @@ public data class SimpleTrack(
     override val uri: SpotifyUri,
 
     val artists: List<SimpleArtist>,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("disc_number") val discNumber: Int,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("duration_ms") val durationMs: Int,
     val explicit: Boolean,
     @SerialName("is_playable") val isPlayable: Boolean = true,
     @SerialName("linked_from") override val linkedTrack: LinkedTrack? = null,
     val name: String,
     @SerialName("preview_url") val previewUrl: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("track_number") val trackNumber: Int,
     val type: String,
     @SerialName("is_local") val isLocal: Boolean? = null,
@@ -134,13 +138,16 @@ public data class Track(
     val album: SimpleAlbum,
     val artists: List<SimpleArtist>,
     @SerialName("is_playable") val isPlayable: Boolean = true,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("disc_number") val discNumber: Int,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("duration_ms") val durationMs: Int,
     val explicit: Boolean,
     @SerialName("linked_from") override val linkedTrack: LinkedTrack? = null,
     val name: String,
     val popularity: Double,
     @SerialName("preview_url") val previewUrl: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("track_number") val trackNumber: Int,
     override val type: String,
     @SerialName("is_local") val isLocal: Boolean? = null,
@@ -251,6 +258,7 @@ public data class AudioAnalysisMeta(
     @SerialName("analyzer_version") val analyzerVersion: String,
     val platform: String,
     @SerialName("detailed_status") val detailedStatus: String,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("status_code") val statusCode: Int? = null,
     val timestamp: Long,
     @SerialName("analysis_time") val analysisTime: Float,
@@ -298,6 +306,7 @@ public data class AudioSection(
     @SerialName("key_confidence") val keyConfidence: Float? = null,
     val mode: Int? = null,
     @SerialName("mode_confidence") val modeConfidence: Float? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("time_signature") val timeSignature: Int,
     @SerialName("time_signature_confidence") val timeSignatureConfidence: Float
 )
@@ -341,22 +350,29 @@ public data class AudioSegment(
  */
 @Serializable
 public data class TrackAnalysis(
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("num_samples") val numSamples: Int,
     val duration: Float,
     @SerialName("sample_md5") val sampleMd5: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("offset_seconds") val offsetSeconds: Int? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("window_seconds") val windowSeconds: Int? = null,
     @SerialName("analysis_sample_rate") val analysisSampleRate: Float,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("analysis_channels") val analysisChannels: Int,
     @SerialName("end_of_fade_in") val endOfFadeIn: Float,
     @SerialName("start_of_fade_out") val startOfFadeOut: Float,
     val loudness: Float,
     val tempo: Float,
     @SerialName("tempo_confidence") val tempoConfidence: Float,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("time_signature") val timeSignature: Int,
     @SerialName("time_signature_confidence") val timeSignatureConfidence: Float,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     val key: Int,
     @SerialName("key_confidence") val keyConfidence: Float,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     val mode: Int? = null,
     @SerialName("mode_confidence") val modeConfidence: Float,
     val codestring: String,
@@ -422,6 +438,7 @@ public data class AudioFeatures(
     val acousticness: Float,
     @SerialName("analysis_url") val analysisUrl: String,
     val danceability: Float,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("duration_ms") val durationMs: Int,
     val energy: Float,
     val id: String,
@@ -432,6 +449,7 @@ public data class AudioFeatures(
     val mode: Int,
     val speechiness: Float,
     val tempo: Float,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("time_signature") val timeSignature: Int,
     @SerialName("track_href") val trackHref: String,
     val type: String,

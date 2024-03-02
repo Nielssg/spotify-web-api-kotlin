@@ -2,6 +2,7 @@
 package com.adamratzman.spotify.models
 
 import com.adamratzman.spotify.endpoints.client.ClientPlayerApi
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.getExternalUrls
 import com.adamratzman.spotify.utils.match
 import kotlinx.serialization.SerialName
@@ -62,6 +63,7 @@ public data class Device(
     @SerialName("is_restricted") val isRestricted: Boolean,
     val name: String,
     @SerialName("type") val typeString: String,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("volume_percent") val volumePercent: Int
 ) : IdentifiableNullable() {
     val type: DeviceType get() = DeviceType.values().first { it.identifier.equals(typeString, true) }
@@ -108,6 +110,7 @@ public enum class DeviceType(public val identifier: String) {
 public data class CurrentlyPlayingContext(
     val timestamp: Long,
     val device: Device,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("progress_ms") val progressMs: Int? = null,
     @SerialName("is_playing") val isPlaying: Boolean,
     @Serializable(with = PlayableSerializer::class)
@@ -137,6 +140,7 @@ public data class CurrentlyPlayingContext(
 public data class CurrentlyPlayingObject(
     val context: SpotifyContext? = null,
     val timestamp: Long,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("progress_ms") val progressMs: Int? = null,
     @SerialName("is_playing") val isPlaying: Boolean,
     @Serializable(with = PlayableSerializer::class)

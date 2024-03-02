@@ -12,6 +12,11 @@ import com.adamratzman.spotify.models.instantiateLateinitsIfPagingObjects
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -223,4 +228,22 @@ internal fun <T : Any, Z : PagingObjectBase<T, Z>> PagingObjectBase<T, Z>.instan
     getMembersThatNeedApiInstantiation().instantiateAllNeedsApiObjects(api)
     this.api = api
     this.itemClass = tClazz
+}
+
+
+public object SpotifyFloatFixSerializer : KSerializer<Int> {
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("SpotifyFloatFixSerializer", PrimitiveKind.FLOAT)
+
+    override fun serialize(encoder: Encoder, value: Int) {
+        encoder.encodeInt(value)
+    }
+
+    override fun deserialize(decoder: Decoder): Int {
+        return try {
+            decoder.decodeFloat().toInt()
+        } catch (e: Throwable) {
+            decoder.decodeInt()
+        }
+    }
 }

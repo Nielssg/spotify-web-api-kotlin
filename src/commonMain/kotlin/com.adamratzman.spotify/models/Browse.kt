@@ -1,6 +1,7 @@
 /* Spotify Web API, Kotlin Wrapper; MIT License, 2017-2022; Original author: Adam Ratzman */
 package com.adamratzman.spotify.models
 
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -38,8 +39,11 @@ public data class RecommendationSeed(
     @SerialName("href") override val href: String? = null,
     @SerialName("id") override val id: String,
 
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     val initialPoolSize: Int,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     val afterFilteringSize: Int,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     val afterRelinkingSize: Int? = null,
     val type: String
 ) : Identifiable()

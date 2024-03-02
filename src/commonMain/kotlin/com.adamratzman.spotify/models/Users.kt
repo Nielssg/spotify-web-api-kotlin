@@ -2,6 +2,7 @@
 package com.adamratzman.spotify.models
 
 import com.adamratzman.spotify.SpotifyScope
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -84,6 +85,7 @@ public data class SpotifyPublicUser(
 @Serializable(with = FollowersSerializer::class)
 public data class Followers(
     val href: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("total") val total: Int? = null
 )
 

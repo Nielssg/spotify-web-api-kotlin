@@ -5,6 +5,7 @@ import com.adamratzman.spotify.GenericSpotifyApi
 import com.adamratzman.spotify.SpotifyApi
 import com.adamratzman.spotify.SpotifyApiOptions
 import com.adamratzman.spotify.SpotifyException
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.ExternalUrls
 import com.adamratzman.spotify.utils.getCurrentTimeMs
 import com.adamratzman.spotify.utils.getExternalUrls
@@ -119,7 +120,12 @@ public data class ErrorResponse(val error: ErrorObject, @Transient val exception
  * @param message A short description of the cause of the error.
  */
 @Serializable
-public data class ErrorObject(val status: Int, val message: String, val reason: String? = null)
+public data class ErrorObject(
+    @Serializable(with = SpotifyFloatFixSerializer::class)
+    val status: Int,
+    val message: String,
+    val reason: String? = null
+)
 
 /**
  * An exception during the authentication process

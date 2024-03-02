@@ -2,6 +2,7 @@
 package com.adamratzman.spotify.models
 
 import com.adamratzman.spotify.SpotifyRestAction
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.Market
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -62,11 +63,13 @@ public data class LocalTrack(
     override val href: String? = null,
     override val id: String? = null,
     @SerialName("disc_number") val discNumber: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("duration_ms") val durationMs: Int? = null,
     @SerialName("explicit") val explicit: Boolean? = null,
     @SerialName("is_local") val isLocal: Boolean = true,
     val name: String,
     val popularity: Double? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("track_number") val trackNumber: Int? = null,
     override val type: String,
     override val uri: LocalTrackUri

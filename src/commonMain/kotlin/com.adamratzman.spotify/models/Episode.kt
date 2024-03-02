@@ -3,6 +3,7 @@ package com.adamratzman.spotify.models
 
 import com.adamratzman.spotify.SpotifyRestAction
 import com.adamratzman.spotify.SpotifyScope
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.Locale
 import com.adamratzman.spotify.utils.Market
 import kotlinx.serialization.SerialName
@@ -42,7 +43,9 @@ public data class PodcastEpisodeTrack(
     val album: SimpleAlbum,
     val artists: List<SimpleArtist>,
     @SerialName("available_markets") private val availableMarketsString: List<String> = listOf(),
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("disc_number") val discNumber: Int,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("duration_ms") val durationMs: Int,
     val episode: Boolean? = null,
     val explicit: Boolean,
@@ -56,6 +59,7 @@ public data class PodcastEpisodeTrack(
     val popularity: Double,
     @SerialName("preview_url") val previewUrl: String? = null,
     val track: Boolean? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("track_number") val trackNumber: Int,
     override val type: String,
     override val uri: PlayableUri,
@@ -91,6 +95,7 @@ public data class PodcastEpisodeTrack(
 public data class Episode(
     @SerialName("audio_preview_url") val audioPreviewUrl: String? = null,
     val description: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("duration_ms") val durationMs: Int,
     val explicit: Boolean,
     @SerialName("external_urls") override val externalUrlsString: Map<String, String>,
@@ -143,6 +148,7 @@ public data class Episode(
 public data class SimpleEpisode(
     @SerialName("audio_preview_url") val audioPreviewUrl: String? = null,
     val description: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("duration_ms") val durationMs: Int,
     val explicit: Boolean,
     @SerialName("external_urls") override val externalUrlsString: Map<String, String>,
@@ -196,6 +202,7 @@ public data class SimpleEpisode(
 @Serializable
 public data class ResumePoint(
     @SerialName("fully_played") val fullyPlayed: Boolean,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("resume_position_ms") val resumePositionMs: Int
 )
 

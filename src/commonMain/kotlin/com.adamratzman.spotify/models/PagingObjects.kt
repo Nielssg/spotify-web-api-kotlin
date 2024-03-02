@@ -5,6 +5,7 @@ import com.adamratzman.spotify.GenericSpotifyApi
 import com.adamratzman.spotify.SpotifyRestAction
 import com.adamratzman.spotify.models.PagingTraversalType.BACKWARDS
 import com.adamratzman.spotify.models.PagingTraversalType.FORWARDS
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.models.serialization.instantiateAllNeedsApiObjects
 import com.adamratzman.spotify.models.serialization.instantiateLateinitsForPagingObject
 import com.adamratzman.spotify.models.serialization.toCursorBasedPagingObject
@@ -59,10 +60,13 @@ public enum class PagingTraversalType {
 public class NullablePagingObject<T : Any>(
     override val href: String,
     override val items: List<T?>,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val limit: Int,
     override val next: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val offset: Int,
     override val previous: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val total: Int = 0
 ) : AbstractPagingObject<T, NullablePagingObject<T>>() {
     public fun toPagingObject(): PagingObject<T> {
@@ -95,10 +99,13 @@ public class NullablePagingObject<T : Any>(
 public data class PagingObject<T : Any>(
     override val href: String,
     override val items: List<T>,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val limit: Int,
     override val next: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val offset: Int,
     override val previous: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val total: Int = 0
 ) : AbstractPagingObject<T, PagingObject<T>>() {
     override fun get(index: Int): T = super.get(index)!!
@@ -267,10 +274,13 @@ public abstract class AbstractPagingObject<T : Any, Z : AbstractPagingObject<T, 
 public data class CursorBasedPagingObject<T : Any>(
     override val href: String,
     override val items: List<T>,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val limit: Int,
     override val next: String? = null,
     @SerialName("cursors") public val cursor: Cursor? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val total: Int = 0,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     override val offset: Int = 0,
     override val previous: String? = null
 ) : PagingObjectBase<T, CursorBasedPagingObject<T>>() {
@@ -371,10 +381,13 @@ public data class Cursor(val before: String? = null, val after: String? = null)
 public abstract class PagingObjectBase<T : Any, Z : PagingObjectBase<T, Z>> : List<T?>, NeedsApi() {
     public abstract val href: String
     public abstract val items: List<T?>
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     public abstract val limit: Int
     public abstract val next: String?
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     public abstract val offset: Int
     public abstract val previous: String?
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     public abstract val total: Int
 
     @Suppress("UNCHECKED_CAST")

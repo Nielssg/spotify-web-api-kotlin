@@ -2,6 +2,7 @@
 package com.adamratzman.spotify.models
 
 import com.adamratzman.spotify.SpotifyRestAction
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.Market
 import com.adamratzman.spotify.utils.match
 import kotlinx.serialization.SerialName
@@ -47,6 +48,7 @@ public data class SimpleAlbum(
     val restrictions: Restrictions? = null,
     @SerialName("release_date") private val releaseDateString: String? = null,
     @SerialName("release_date_precision") val releaseDatePrecisionString: String? = null,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("total_tracks") val totalTracks: Int? = null,
     @SerialName("album_group") private val albumGroupString: String? = null
 ) : CoreObject() {
@@ -85,7 +87,14 @@ public data class SimpleAlbum(
 }
 
 @Serializable
-public data class ReleaseDate(val year: Int, val month: Int?, val day: Int?)
+public data class ReleaseDate(
+    @Serializable(with = SpotifyFloatFixSerializer::class)
+    val year: Int,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
+    val month: Int?,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
+    val day: Int?
+)
 
 /**
  * Album search type
@@ -150,6 +159,7 @@ public data class Album(
     @SerialName("release_date_precision") val releaseDatePrecision: String,
     val tracks: PagingObject<SimpleTrack>,
     val type: String,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("total_tracks") val totalTracks: Int,
     val restrictions: Restrictions? = null
 ) : CoreObject() {

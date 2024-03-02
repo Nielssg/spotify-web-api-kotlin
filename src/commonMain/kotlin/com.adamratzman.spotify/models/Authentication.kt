@@ -3,6 +3,7 @@ package com.adamratzman.spotify.models
 
 import com.adamratzman.spotify.SpotifyApi
 import com.adamratzman.spotify.SpotifyScope
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.getCurrentTimeMs
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -26,6 +27,7 @@ import kotlinx.serialization.Transient
 public data class Token(
     @SerialName("access_token") var accessToken: String,
     @SerialName("token_type") val tokenType: String,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     @SerialName("expires_in") var expiresIn: Int,
     @SerialName("refresh_token") var refreshToken: String? = null,
     @SerialName("scope") internal var scopeString: String? = null

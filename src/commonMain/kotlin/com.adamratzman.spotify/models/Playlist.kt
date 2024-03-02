@@ -4,6 +4,7 @@ package com.adamratzman.spotify.models
 import com.adamratzman.spotify.SpotifyAppApi
 import com.adamratzman.spotify.SpotifyRestAction
 import com.adamratzman.spotify.endpoints.client.PlaylistSnapshot
+import com.adamratzman.spotify.models.serialization.SpotifyFloatFixSerializer
 import com.adamratzman.spotify.utils.Market
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -150,6 +151,7 @@ public data class Playlist(
 @Serializable
 public data class PlaylistTrackInfo(
     val href: String,
+    @Serializable(with = SpotifyFloatFixSerializer::class)
     val total: Int
 )
 
